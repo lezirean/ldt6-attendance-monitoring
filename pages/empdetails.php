@@ -137,9 +137,9 @@
   <div class="wrapper">
     <!-- Sidebar  -->
     <nav id = "sidebar">
-      <div class="sidebar-header">
-        <img src="../images/logo.png" class="logo header">
-        <b><h3 style="text-align: center;">TAGUIG</h3></b>
+      <div class="sidebar-header">       
+       <img src="../images/logo.png" alt = "LDT6" class = "header">
+        <b><h3 style = "text-align: center;">TAGUIG</h3></b>
       </div>
 
       <hr>
@@ -177,8 +177,14 @@
         <!-- <span id="emp-name">Name</span> -->
         <div class="name-img">
           <span id="name"><?php echo $_SESSION['fname'] ?></span> <br>
-          <img src="../images/woman.png">
+          <?php 
+            if($_SESSION['sex'] == 'female') 
+              echo "<img src='../images/woman.png' id='icon'>";
+            else 
+              echo "<img src='../images/man.png' id='icon'>";
+          ?>
         </div>
+        
         <div class="wrap-emp-deets">
             <header>Data</header>
             <div class="divider"></div>
