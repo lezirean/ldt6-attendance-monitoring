@@ -25,6 +25,7 @@
 					$_SESSION['fname'] = $row['fname'];
 					$_SESSION['mname'] = $row['mname'];
 					$_SESSION['lname'] = $row['lname'];
+					$_SESSION['sex'] = $row['sex'];
 					$team_ID = $row['team_ID'];
 
 					$team_query = "SELECT team_name FROM designation_team WHERE team_ID = $team_ID";
