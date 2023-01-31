@@ -139,7 +139,7 @@
     <nav id = "sidebar">
       <div class="sidebar-header">
         <img src="../images/logo.png" class="logo header">
-          <h3 style="text-align: center;">TAGUIG</h3>
+        <b><h3 style="text-align: center;">TAGUIG</h3></b>
       </div>
 
       <hr>
