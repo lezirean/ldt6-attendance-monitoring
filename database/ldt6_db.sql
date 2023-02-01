@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Jan 22, 2023 at 08:23 AM
+-- Generation Time: Feb 01, 2023 at 02:32 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,7 +31,7 @@ CREATE TABLE `attendance` (
   `attendance_ID` int(11) NOT NULL,
   `schedule_ID` int(11) NOT NULL,
   `employee_ID` int(11) NOT NULL,
-  `time_in` time NOT NULL,
+  `time_in` time NOT NULL DEFAULT current_timestamp(),
   `time_out` time DEFAULT NULL,
   `date_today` date DEFAULT NULL,
   `has_schedule` time DEFAULT NULL,
@@ -88,10 +88,11 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`employee_ID`, `team_ID`, `schedule_ID`, `fname`, `mname`, `lname`, `sex`, `date_of_birth`, `address`, `mobile_no`, `email`, `password`, `is_active`) VALUES
 (1234, 4567, 3456, 'joanna', 'santos', 'marasigan', 'female', NULL, NULL, NULL, NULL, 'adminpass', 1),
-(2345, 1234, 2345, 'robert', 'sixto', 'borja', NULL, NULL, NULL, NULL, NULL, 'emppass1', 1),
-(3456, 3456, 5678, 'gilbert', 'tevelio', 'reyes', NULL, NULL, NULL, NULL, NULL, 'emppass2', 1),
-(4567, 2345, 5678, 'rodel', 'debian', 'mangiliman', NULL, NULL, NULL, NULL, NULL, 'emppass3', 1),
-(5678, 3456, 2345, 'sonny', 'lacson', 'caraig', NULL, NULL, NULL, NULL, NULL, 'emppass4', 1);
+(2345, 1234, 2345, 'robert', 'sixto', 'borja', 'male', NULL, NULL, NULL, NULL, 'emppass1', 1),
+(3456, 3456, 5678, 'gilbert', 'tevelio', 'reyes', 'male', NULL, NULL, NULL, NULL, 'emppass2', 1),
+(4567, 2345, 5678, 'rodel', 'debian', 'mangiliman', 'male', NULL, NULL, NULL, NULL, 'emppass3', 1),
+(5678, 3456, 2345, 'sonny', 'lacson', 'caraig', 'male', NULL, NULL, NULL, NULL, 'emppass4', 1),
+(6789, 3456, 2345, 'Dalia', 'Rodriguez', 'Marco', 'female', '1990-09-30', 'Taguig City', NULL, NULL, 'emppass5', 1);
 
 -- --------------------------------------------------------
 
