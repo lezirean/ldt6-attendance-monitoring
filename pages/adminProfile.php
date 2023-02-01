@@ -88,7 +88,7 @@
                                   style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                                     alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                                  <h5><?php echo $_SESSION['fname']." ".$_SESSION['mname'] ?></h5>
+                                  <h5><?php echo $_SESSION['fname']." ".$_SESSION['lname'] ?></h5>
                                   <p><?php echo $_SESSION['team_name'] ?></p>
                                 </div>
                                 <div class="col-md-8">
