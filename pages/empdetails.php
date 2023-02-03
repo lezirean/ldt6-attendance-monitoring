@@ -149,7 +149,7 @@
             <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
             <ul class="collapse list-unstyled" id="profileSubmenu">
                 <li>
-                    <a href="empdetails.php">My Profile</a>
+                    <a href="../pages/empdetails.php">My Profile</a>
                 </li>
             </ul>
         </li>
@@ -158,7 +158,7 @@
             <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
             <ul class="collapse list-unstyled" id="attendanceSubmenu">
                 <li>
-                    <a href="#">Attendance Form</a>
+                    <a href="../pages/timeIn-out.html">Attendance Form</a>
                 </li>
             </ul>
         </li>
