@@ -22,109 +22,109 @@
 </head>
 
 <body>
-<div class="wrapper">
-    <!-- Sidebar  -->
-    <nav id = "sidebar">
-       <div class="sidebar-header">
-           <img src="../images/logo.png" alt = "LDT6" class = "header">
-            <b><h3 style = "text-align: center;">TAGUIG</h3></b>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id = "sidebar">
+           <div class="sidebar-header">
+               <img src="../images/logo.png" alt = "LDT6" class = "header">
+                <b><h3 style = "text-align: center;">TAGUIG</h3></b>
+            </div>
+            <hr></hr>
+            <ul class="list-unstyled components">
+                <!--<p>Dummy Heading</p>-->
+                <li>
+                    <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
+                    <ul class="collapse list-unstyled" id="profileSubmenu">
+                        <li>
+                            <a href="../pages/adminProfile.php">My Profile</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
+                    <ul class="collapse list-unstyled" id="attendanceSubmenu">
+                        <li>
+                            <a href="../pages/timeIn-out.html">Attendance Form</a>
+                        </li>
+                    </ul>
+                </li>
+    			
+    			 <li>
+                    <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master</a>
+                    <ul class="collapse list-unstyled" id="masterSubmenu">
+                        <li>
+                            <a href="../pages/teamsrecord.html">Teams</a>
+    						<a href="../pages/employeerecord.html">Employees</a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <button type="button" class="btn btn-outline-dark logout" >Logout</button>    
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+
+            <!--Toggle button-->
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i> 
+            </button>
+
+            <div id = "body" class = "box">
+            	<div class="container">
+            		<button id="btnAdd" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Team</button>
+            		<table id="employee-table" class="table table-responsive table-hover table-bordered table-striped">
+            		<br>
+            			<thead>
+            			<tr>
+            			<br>
+            				<th>Team Name</th>
+            				<th>Team ID</th>
+            				<th>Edit</th>
+            				<th>Delete</th>
+            			</tr></thead>
+            			<tbody>
+            				<tr>
+            					<td>Installation</td>
+            					<td>12345678</td>
+            					<td><button class="btn btn-info" data-toggle="modal" onclick="editRow(this)">Edit</button></td>
+            					<td><button class="btn btn-danger" data-bs-toggle="modal" onclick="deleteRow(this);">Delete</button></td>
+            				</tr>			
+            			</tbody>			
+            		</table>	
+            	</div>
+        	
+                <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                	  <div class="modal-dialog">
+                		<div class="modal-content">
+                		  <div class="modal-header">
+                			<h5 class="modal-title" id="exampleModalLabel">Add New Team</h5>
+                			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                		  </div>
+                		  <div class="modal-body">
+                			<form>
+                			  <div class="mb-3">
+                				<label for="team-name" class="col-form-label">Team Name:</label>
+                				<input type="text" class="form-control" id="team-name">
+                			  </div>
+                			  <div class="mb-3">
+                				<label for="team-id" class="col-form-label">Team ID:</label>
+                				<input type="text" class="form-control" id="team-id">
+                			  </div>
+                			</form>
+                		  </div>
+                		  <div class="modal-footer">
+                			<button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                			<button type="button" id="save" class="btn btn-primary" onclick="save();">Save</button>
+                		  </div>
+                		</div>
+                	  </div>
+                </div>             
+            </div>
         </div>
-        <hr></hr>
-        <ul class="list-unstyled components">
-            <!--<p>Dummy Heading</p>-->
-            <li>
-                <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
-                <ul class="collapse list-unstyled" id="profileSubmenu">
-                    <li>
-                        <a href="../pages/adminProfile.php">My Profile</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
-                <ul class="collapse list-unstyled" id="attendanceSubmenu">
-                    <li>
-                        <a href="../pages/timeIn-out.html">Attendance Form</a>
-                    </li>
-                </ul>
-            </li>
-			
-			 <li>
-                <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master</a>
-                <ul class="collapse list-unstyled" id="masterSubmenu">
-                    <li>
-                        <a href="../pages/teamsrecord.html">Teams</a>
-						<a href="../pages/employeerecord.html">Employees</a>
-                    </li>
-                </ul>
-            </li>
-            
-            <button type="button" class="btn btn-outline-dark logout" >Logout</button>    
-    </nav>
-
-    <!-- Page Content  -->
-    <div id="content">
-
-
-        <!--Toggle button-->
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i> 
-        </button>
-
-        <div id = "body" class = "box">
-        	<div class="container">
-        		<button id="btnAdd" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Team</button>
-        		<table id="employee-table" class="table table-responsive table-hover table-bordered table-striped">
-        		<br>
-        			<thead>
-        			<tr>
-        			<br>
-        				<th>Team Name</th>
-        				<th>Team ID</th>
-        				<th>Edit</th>
-        				<th>Delete</th>
-        			</tr></thead>
-        			<tbody>
-        				<tr>
-        					<td>Installation</td>
-        					<td>12345678</td>
-        					<td><button class="btn btn-info" data-toggle="modal" onclick="editRow(this)">Edit</button></td>
-        					<td><button class="btn btn-danger" data-bs-toggle="modal" onclick="deleteRow(this);">Delete</button></td>
-        				</tr>			
-        			</tbody>			
-        		</table>	
-        	</div>
-    	
-            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            	  <div class="modal-dialog">
-            		<div class="modal-content">
-            		  <div class="modal-header">
-            			<h5 class="modal-title" id="exampleModalLabel">Add New Team</h5>
-            			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            		  </div>
-            		  <div class="modal-body">
-            			<form>
-            			  <div class="mb-3">
-            				<label for="team-name" class="col-form-label">Team Name:</label>
-            				<input type="text" class="form-control" id="team-name">
-            			  </div>
-            			  <div class="mb-3">
-            				<label for="team-id" class="col-form-label">Team ID:</label>
-            				<input type="text" class="form-control" id="team-id">
-            			  </div>
-            			</form>
-            		  </div>
-            		  <div class="modal-footer">
-            			<button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            			<button type="button" id="save" class="btn btn-primary" onclick="save();">Save</button>
-            		  </div>
-            		</div>
-            	  </div>
-            </div>             
-        </div>
-    </div>
-						
+    </div>					
 
            
 
@@ -156,6 +156,6 @@
     <script type="text/javascript">
       $('#body').css('min-height', screen.height);
     </script>
+    
 </body>
-
 </html>
