@@ -50,7 +50,7 @@
                     <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
                     <ul class="collapse list-unstyled" id="attendanceSubmenu">
                         <li>
-                            <a href="#">Attendance Form</a>
+                            <a href="../pages/timeIn-out.html">Attendance Form</a>
                         </li>
                     </ul>
 
@@ -58,10 +58,10 @@
                     <a href="#MasterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master</a>
                     <ul class="collapse list-unstyled" id="MasterSubmenu">
                         <li>
-                            <a href="#">Teams</a>
+                            <a href="../pages/teamsrecord.html">Teams</a>
                         </li>
                         <li>
-                            <a href="#">Employees</a>
+                            <a href="../pages/employeerecord.html">Employees</a>
                         </li>
                     </ul>
                 </li>  
