@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Feb 03, 2023 at 05:33 AM
+-- Generation Time: Feb 05, 2023 at 06:17 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -26,8 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `attendance`
 --
--- Creation: Feb 03, 2023 at 04:29 AM
---
 
 CREATE TABLE `attendance` (
   `attendance_ID` int(11) NOT NULL,
@@ -46,8 +45,6 @@ CREATE TABLE `attendance` (
 --
 -- Table structure for table `designation_team`
 --
--- Creation: Jan 20, 2023 at 03:00 AM
---
 
 CREATE TABLE `designation_team` (
   `team_ID` int(4) NOT NULL,
@@ -63,14 +60,13 @@ INSERT INTO `designation_team` (`team_ID`, `team_name`, `team_description`) VALU
 (1234, 'Installation', NULL),
 (2345, 'PMS/Repair', NULL),
 (3456, 'Aircon', NULL),
-(4567, 'Admin', 'Administration Team');
+(4567, 'Admin', 'Administration Team'),
+(9876, 'test data', NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `employee`
---
--- Creation: Jan 13, 2023 at 12:43 AM
 --
 
 CREATE TABLE `employee` (
@@ -105,8 +101,6 @@ INSERT INTO `employee` (`employee_ID`, `team_ID`, `schedule_ID`, `fname`, `mname
 
 --
 -- Table structure for table `schedule`
---
--- Creation: Jan 20, 2023 at 03:25 AM
 --
 
 CREATE TABLE `schedule` (
@@ -197,6 +191,7 @@ ALTER TABLE `attendance`
 ALTER TABLE `employee`
   ADD CONSTRAINT `fk_employee_designation_team1` FOREIGN KEY (`team_ID`) REFERENCES `designation_team` (`team_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_employee_schedule1` FOREIGN KEY (`schedule_ID`) REFERENCES `schedule` (`schedule_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
