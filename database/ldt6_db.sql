@@ -195,8 +195,8 @@ ALTER TABLE `attendance`
 -- Constraints for table `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `fk_employee_designation_team1` FOREIGN KEY (`team_ID`) REFERENCES `designation_team` (`team_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_employee_schedule1` FOREIGN KEY (`schedule_ID`) REFERENCES `schedule` (`schedule_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_employee_designation_team1` FOREIGN KEY (`team_ID`) REFERENCES `designation_team` (`team_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_employee_schedule1` FOREIGN KEY (`schedule_ID`) REFERENCES `schedule` (`schedule_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
