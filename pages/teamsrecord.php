@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="teams.css">
+    <link rel="stylesheet" href="../css/teams.css">
     <link rel="stylesheet" href="../css/sidebar.css">
     
     <!-- Font Awesome JS -->
@@ -92,7 +92,7 @@
                 				<tr>
                                     <td><?php echo $team['team_ID']; ?></td>
                 					<td><?php echo $team['team_name']; ?></td>
-                					<td><button class="btn btn-info" data-toggle="modal">Edit</button></td>
+                					<td><button class="btn btn-info editBtn" data-toggle="modal">Edit</button></td>
                 					<td><button class="btn btn-danger" data-bs-toggle="modal">Delete</button></td>
                 				</tr>	
                             <?php } ?>		
@@ -127,7 +127,37 @@
                           </form>
                 		</div>
                 	  </div>
-                </div>             
+                </div> 
+
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalLabel">Edit Team Details</h5>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form method="POST" action="update_team.php">
+                              <div class="modal-body">
+                                  <div class="mb-3">
+                                    <label for="edit-team-id" class="col-form-label">Team ID:</label>
+                                    <input type="number" class="form-control" id="edit-team-id" name="edit-team-id">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="edit-team-name" class="col-form-label">Team Name:</label>
+                                    <input type="text" class="form-control" id="edit-team-name" name="edit-team-name">
+                                  </div>
+                              </div>
+                          
+                              <div class="modal-footer">
+                                <button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" name="editBtn" id="editBtn" class="btn btn-primary">Save</button>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                </div> 
+
             </div>
         </div>
     </div>					
@@ -148,6 +178,8 @@
     <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 
+    <script src="../js/teams.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({
@@ -162,11 +194,29 @@
         });
     </script>
 	
-    <script src="../js/teams.js"></script>
-		
     <script type="text/javascript">
       $('#body').css('min-height', screen.height);
     </script>
 
+    <script>
+        $(document).ready(function () {
+
+            $('.editBtn').on('click', function () {
+
+                $('#editModal').modal('show');
+
+                var tr = $(this).closest('tr');
+
+                var data = tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#edit-team-id').val(data[0]);
+                $('#edit-team-name').val(data[1]);
+            });
+        });
+    </script>
 </body>
 </html>
