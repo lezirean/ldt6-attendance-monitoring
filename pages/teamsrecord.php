@@ -1,5 +1,5 @@
 <?php 
-    //session_start();
+    session_start();
     require 'connection.php';
 
     $query = "SELECT * FROM designation_team";
@@ -93,7 +93,7 @@
                                     <td><?php echo $team['team_ID']; ?></td>
                 					<td><?php echo $team['team_name']; ?></td>
                 					<td><button class="btn btn-info editBtn" data-toggle="modal">Edit</button></td>
-                					<td><button class="btn btn-danger" data-bs-toggle="modal">Delete</button></td>
+                					<td><button class="btn btn-danger deleteBtn" data-bs-toggle="modal">Delete</button></td>
                 				</tr>	
                             <?php } ?>		
             			</tbody>			
@@ -141,7 +141,7 @@
                               <div class="modal-body">
                                   <div class="mb-3">
                                     <label for="edit-team-id" class="col-form-label">Team ID:</label>
-                                    <input type="number" class="form-control" id="edit-team-id" name="edit-team-id">
+                                    <input type="number" class="form-control" id="edit-team-id" name="edit-team-id" readonly>
                                   </div>
                                   <div class="mb-3">
                                     <label for="edit-team-name" class="col-form-label">Team Name:</label>
@@ -157,6 +157,35 @@
                         </div>
                       </div>
                 </div> 
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalLabel">Delete this team?</h5>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form method="POST" action="deleteteam.php">
+                              <div class="modal-body">
+                                  <div class="mb-3">
+                                    <label for="delete-team-id" class="col-form-label">Team ID:</label>
+                                    <input type="number" class="form-control" id="delete-team-id" name="delete-team-id" readonly>
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="delete-team-name" class="col-form-label">Team Name:</label>
+                                    <input type="text" class="form-control" id="delete-team-name" name="delete-team-name" readonly>
+                                  </div>
+                              </div>
+                          
+                              <div class="modal-footer">
+                                <button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" name="deleteBtn" id="deleteBtn" class="btn btn-primary">Delete</button>
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                </div>
 
             </div>
         </div>
@@ -218,5 +247,27 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.deleteBtn').on('click', function () {
+
+                $('#deleteModal').modal('show');
+
+                var tr = $(this).closest('tr');
+
+                var data = tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#delete-team-id').val(data[0]);
+                $('#delete-team-name').val(data[1]);
+            });
+        });
+    </script>
+
 </body>
 </html>
