@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Feb 05, 2023 at 06:17 AM
+-- Generation Time: Feb 06, 2023 at 01:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -37,7 +36,8 @@ CREATE TABLE `attendance` (
   `date_today` date DEFAULT NULL,
   `has_schedule` time DEFAULT NULL,
   `is_approved_overtime` tinyint(4) DEFAULT NULL,
-  `is_late` varchar(20) DEFAULT NULL
+  `status_timein` varchar(255) DEFAULT NULL,
+  `status_timeout` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -61,7 +61,7 @@ INSERT INTO `designation_team` (`team_ID`, `team_name`, `team_description`) VALU
 (2345, 'PMS/Repair', NULL),
 (3456, 'Aircon', NULL),
 (4567, 'Admin', 'Administration Team'),
-(9876, 'test data', NULL);
+(5566, 'update test', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,7 +191,6 @@ ALTER TABLE `attendance`
 ALTER TABLE `employee`
   ADD CONSTRAINT `fk_employee_designation_team1` FOREIGN KEY (`team_ID`) REFERENCES `designation_team` (`team_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_employee_schedule1` FOREIGN KEY (`schedule_ID`) REFERENCES `schedule` (`schedule_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
