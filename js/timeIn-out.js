@@ -76,9 +76,11 @@ button1.addEventListener('click', function handleClick(){
 
   if (button1.textContent.toLowerCase().includes(initialText.toLowerCase())) {
     button1.innerHTML = '<span>Time Out</span>';
+    //document.getElementById("button1").setAttribute("value","Time Out");
+    
   } 
   else
-    button1.textContent = initialText;
+  button1.textContent = initialText;
     
   index = index >= colors.length - 1 ? 0 : index + 1;
 
@@ -99,11 +101,15 @@ function displayTime() {
                   hour: '2-digit',
                   minute: '2-digit'
               });
-      document.querySelector("h2").innerHTML = time_in;
+      document.getElementById("time_in").innerHTML = time_in;
       
       //display DATE FORMAT: DAY-Month-DD-YYYY
       const date_today = new Date();
-      document.getElementById('demo').innerHTML = date_today.toDateString();
+      document.getElementById('date_today').innerHTML = date_today.toDateString();
+
+      const d = new Date();
+      let day = d.getDay()
+      document.getElementById("has_schedule").innerHTML = day;
     } 
     else {
       confirmtext = "Time in canceled!";
@@ -122,11 +128,15 @@ function displayTime() {
                   hour: '2-digit',
                   minute: '2-digit'
               });
-      document.querySelector("h2").innerHTML = time_out;
+      document.getElementById("time_out").innerHTML = time_out;
       
       //display DATE FORMAT: DAY-Month-DD-YYYY
       const date_today = new Date();
-      document.getElementById('demo').innerHTML = date_today.toDateString();
+      document.getElementById('date_today').innerHTML = date_today.toDateString();
+
+      const d = new Date();
+      let day = d.getDay()
+      document.getElementById("has_schedule").innerHTML = day;
     } 
     else {
       confirmtext = "Time out canceled!";
