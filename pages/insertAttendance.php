@@ -152,9 +152,9 @@ need to insert: time_in, time_out, date_today, status_timein, status_timeout -->
   success pag add using postman, kaso hardcoded including 'schedule_ID', 'employee_ID',
  ' has_schedule'. I need to get them from other tables then insert sa 'attendance' table.
 
- ' has_schedule' anu purpose. wala siya sa ibang table.
+ ' has_schedule' from time to BOOLEAN.
 
-  Di ko gets how 'is_approved_overtime' works. 
+  'is_approved_overtime' dropped. 
 -->
 
 
