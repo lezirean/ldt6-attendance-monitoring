@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Feb 06, 2023 at 01:31 PM
+-- Generation Time: Feb 11, 2023 at 12:59 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -34,8 +34,7 @@ CREATE TABLE `attendance` (
   `time_in` time NOT NULL DEFAULT current_timestamp(),
   `time_out` time DEFAULT NULL,
   `date_today` date DEFAULT NULL,
-  `has_schedule` time DEFAULT NULL,
-  `is_approved_overtime` tinyint(4) DEFAULT NULL,
+  `has_schedule` tinyint(1) DEFAULT NULL,
   `status_timein` varchar(255) DEFAULT NULL,
   `status_timeout` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
