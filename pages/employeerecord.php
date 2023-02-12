@@ -1,11 +1,16 @@
 <?php 
     session_start();
     require 'connection.php';
-     $query = "SELECT * FROM designation_team";
-     $query2 = "SELECT * FROM schedule";
-    
-    $result = mysqli_query($connection, $query);
-    $result2 = mysqli_query($connection, $query2);
+
+	if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
+		header("Location: index.php?err=No Present Session");
+		exit(); 
+	} else {
+		$query = "SELECT * FROM designation_team";
+		$query2 = "SELECT * FROM schedule";
+
+		$result = mysqli_query($connection, $query);
+		$result2 = mysqli_query($connection, $query2);
 ?>
 
 
@@ -56,7 +61,7 @@
                     <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
                     <ul class="collapse list-unstyled" id="attendanceSubmenu">
                         <li>
-                            <a href="../pages/timeIn-out.html">Attendance Form</a>
+                            <a href="../pages/timeIn-out.php">Attendance Form</a>
                         </li>
                     </ul>
                 </li>
@@ -71,7 +76,7 @@
                     </ul>
                 </li>
                 
-                    <button type="button" class="btn btn-outline-dark logout" >Logout</button>
+                    <button type="button" class="btn btn-outline-dark logout" onClick="document.location.href='logout.php'">Logout</button>
                
         </nav>
 
@@ -280,5 +285,8 @@
       $('#body2').css('max-width', screen.width);
     </script>
 </body>
-
 </html>
+
+<?php 
+  }
+?>
