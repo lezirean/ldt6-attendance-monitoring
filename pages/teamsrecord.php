@@ -2,9 +2,13 @@
     session_start();
     require 'connection.php';
 
-    $query = "SELECT * FROM designation_team";
-    
-    $result = mysqli_query($connection, $query);
+    if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
+      header("Location: index.php?err=From Logout");
+      exit(); 
+    } else {
+
+        $query = "SELECT * FROM designation_team";
+        $result = mysqli_query($connection, $query);
 ?>
 
 <!DOCTYPE html>
@@ -271,3 +275,7 @@
 
 </body>
 </html>
+
+<?php 
+  }
+?>
