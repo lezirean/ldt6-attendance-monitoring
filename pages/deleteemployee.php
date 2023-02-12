@@ -1,5 +1,7 @@
 <?php
+	session_start();
 	include 'connection.php';
+	
 	if(!$connection)
 	{
 		die("Connection: " . mysqli_connect_error);
