@@ -9,7 +9,7 @@
 
     <!--CSS -->
    <!-- <link rel="stylesheet" href="timeIn-out.css"> --> 
-     <link rel="stylesheet" href="sidebar.css">
+     <link rel="stylesheet" href="../css/sidebar.css">
     
 
     <!-- Font Awesome JS -->
@@ -105,7 +105,7 @@
                     <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
                     <ul class="collapse list-unstyled" id="attendanceSubmenu">
                         <li>
-                            <a href="timeIn-out.html">Attendance Form</a>
+                            <a href="timeIn-out.php">Attendance Form</a>
                         </li>
                     </ul>
 
@@ -113,14 +113,14 @@
                     <a href="#MasterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master</a>
                     <ul class="collapse list-unstyled" id="MasterSubmenu">
                         <li>
-                            <a href="teamsrecord.html">Teams</a>
+                            <a href="teamsrecord.php">Teams</a>
                         </li>
                         <li>
-                            <a href="employeerecord.html">Employees</a>
+                            <a href="employeerecord.php">Employees</a>
                         </li>
                     </ul>
                 </li>  
-                    <button type="button" class="btn btn-outline-dark logout" >Logout</button>
+                    <button type="button" class="btn btn-outline-dark logout" onClick="document.location.href='logout.php'">Logout</button>
                
         </nav>
 
@@ -156,7 +156,7 @@
                     </div>
                   </form>   
             
-                <script src="timeIn-out.js"></script>
+                <script src="../js/timeIn-out.js"></script>
             </div>
 
         </div>
