@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+
+  if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
+    header("Location: index.php?err=From Logout");
+    exit(); 
+  } else {
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,5 +200,8 @@
       $('#login').css('min-height', screen.height);
     </script>
 </body>
-
 </html>
+
+<?php 
+  }
+?>
