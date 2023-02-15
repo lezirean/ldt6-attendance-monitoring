@@ -1,160 +1,99 @@
-<!-- this is to insert values from client side to the database 
-need to insert: time_in, time_out, date_today, status_timein, status_timeout -->
-
 <?php
   session_start();
   include 'connection.php';
 
-  //check connection
   if(!$connection)
     die("Connection: ".mysqli_connect_error());
 
-  
+
   if(isset($_POST['time'])) {
-    
-    $schedID = $_POST['schedule_ID'];
-    $empID = $_POST['employee_ID'];
+    date_default_timezone_set("Asia/Manila");
 
-    $timeIn = $_POST['time_in'];
-    $timeOut = $_POST['time_out'];
-    $dateToday = $_POST['date_today'];
+    if($_POST['attendanceFlag'] == true) {
+      $schedID = $_SESSION['schedule_ID'];
+      $empID = $_SESSION['employee_ID'];
+      $timeIn = date("H:i:s");
+      //$timeOut = NULL;
+      $dateToday = $_POST['dateToday'];
+      $hasSchedule = 1;
+      $status_TimeOut = "";
 
-    $hasSchedule = $_POST['has_schedule'];
-
-    $status_TimeIn = $_POST['status_timein'];
-    $status_TimeOut = $_POST['status_timeout'];
-
-    $query = "SELECT * FROM schedule WHERE schedule_ID = '$schedID'";
-    $result = mysqli_query($connection, $query);
-
-    if(mysqli_num_rows($result) == 1) {
-      $row = mysqli_fetch_assoc($result);
-    
-      switch ($hasSchedule) {
-        case 0: 
-          $schedQuery  = "SELECT * FROM schedule WHERE sun_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 1:
-          $schedQuery  = "SELECT * FROM schedule WHERE mon_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 2:
-          $schedQuery  = "SELECT * FROM schedule WHERE tues_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 3:
-          $schedQuery  = "SELECT * FROM schedule WHERE wed_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 4:
-          $schedQuery  = "SELECT * FROM schedule WHERE thurs_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 5:
-          $schedQuery  = "SELECT * FROM schedule WHERE fri_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
-
-         case 6:
-          $schedQuery  = "SELECT * FROM schedule WHERE sat_time_in IS NOT NULL";
-          $schedResult = mysqli_query($connection, $schedQuery);
-
-          if(mysqli_num_rows($schedResult) == 0) {           
-            noSched();
-          }    
-         break;
+      // determines status of attendance check in
+      if($timeIn > '08:00:00') {
+        $status_TimeIn = "Late";
+      } else if($timeIn < '08:00:00') {
+        $status_TimeIn = "Early";
+      } else {
+        $status_TimeIn = "On-time";
       }
-    }
+
+      $sql = "INSERT INTO attendance (schedule_ID, employee_ID, time_in, date_today, has_schedule, status_timein, status_timeout)".
+      "VALUES ('$schedID', '$empID', '$timeIn', '$dateToday', '$hasSchedule', '$status_TimeIn', '$status_TimeOut')";
+      //$connection->query($sql);
+
+      if ($connection->query($sql) === TRUE) {
+        $query = "SELECT * FROM attendance WHERE employee_ID = '$empID' AND date_today = '$dateToday'";
+        $result = mysqli_query($connection, $query);
+
+        if(mysqli_num_rows($result) == 1) {
+          $row = mysqli_fetch_assoc($result);
+          $_SESSION['time_in'] = $row['time_in'];
+        }
+
+        header("Location: timeIn-out.php?error=Record inserted successfully."); //culprit kung bakit nagre-redirect sa insertAttendance.php        
+        exit();
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+
     
-    $new_time = DateTime::createFromFormat('h:i A', $timeIn);
-    $timeIn_24 = $new_time->format('H:i:s');
+    } else if(isset($_SESSION['timeOut'])){
+      // show that the user has already checked out
+      $_SESSION['attendanceMsg'] = "You have already checked out.";
+      header("Location: timeIn-out.php?error=You have already checked out.");        
+      exit();
+    } else {
+      $timeOut = date("H:i:s");
+      $empID = $_SESSION['employee_ID'];
+      $dateToday = $_POST['dateToday'];
 
-    //STORE TIME IN STATUS 
-     if($timeIn_24 > '08:00:00')
-      $status_TimeIn = "Late";
-  
-     else if($timeIn_24 < '08:00:00')
-      $status_TimeIn = "Early";
-
-     else
-      $status_TimeIn = "On Time";
-
-
-    $new_time = DateTime::createFromFormat('h:i A', $timeOut);
-    $timeOut_24 = $new_time->format('H:i:s');
-
-    //STORE TIME OUT STATUS
-    if($timeOut_24 != null || $timeIn != '') {
-
-      if($timeOut_24 > '17:00:00' )
+      // determines status of attendance check out
+      if($timeOut > '17:00:00') {
         $status_TimeOut = "Overtime";
+      } else if($timeOut < '17:00:00') {
+          $status_TimeOut = "Undertime";
+      } else {
+        $status_TimeOut = "On-time";
+      }
 
-      else if ($timeOut_24 < '17:00:00')
-        $status_TimeOut = "Undertime";
-      
-      else
-        $status_TimeOut = "On Time";
+      $sql = "UPDATE attendance
+              SET time_out = '$timeOut', status_timeout = '$status_TimeOut'
+              WHERE employee_ID = '$empID' AND date_today = '$dateToday'";
+
+      if ($connection->query($sql) === TRUE) {
+        $query = "SELECT * FROM attendance WHERE employee_ID = '$empID' AND date_today = '$dateToday'";
+        $result = mysqli_query($connection, $query);
+
+        if(mysqli_num_rows($result) == 1) {
+          $row = mysqli_fetch_assoc($result);
+          $_SESSION['timeOut'] = $row['time_out'];
+        }
+
+        header("Location: timeIn-out.php?error=You have checked out."); //culprit kung bakit nagre-redirect sa insertAttendance.php        
+        exit();
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+
+      // $query = "SELECT * FROM attendance WHERE employee_ID = '$empID' AND date_today = '$dateToday'";
+      // $result = mysqli_query($connection, $query);
+
+      // if(mysqli_num_rows($result) == 1) {
+      //   $row = mysqli_fetch_assoc($result);
+      //   $_SESSION['timeOut'] = $row['time_out'];
+      // }
+
     }
 
-   
-
-
-  }
-
-  //wala sched -- cant time in
-  function noSched() {
-    header("Location: insertAttendance.php?error=No schedule for today.");
-    exit(); 
-  }
-
-  //insert query 
-  $sql = "INSERT INTO attendance (schedule_ID, employee_ID, time_in, time_out, date_today, has_schedule,
-                                  status_timein, status_timeout)".
-    "VALUES ('$schedID', '$empID', '$timeIn', '$timeOut', '$dateToday', '$hasSchedule', '$status_TimeIn', '$status_Timeout')";
-
-  //echo $sql;
-
-  $connection->query($sql);
-  echo $connection->insert_id;
-
+    }
 ?>
-<!-- 
-  success pag add using postman, kaso hardcoded including 'schedule_ID', 'employee_ID',
- ' has_schedule'. I need to get them from other tables then insert sa 'attendance' table.
-
- ' has_schedule' from time to BOOLEAN.
-
-  'is_approved_overtime' dropped. 
--->
-
-
