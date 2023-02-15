@@ -75,9 +75,7 @@ button1.addEventListener('click', function handleClick(){
   const initialText = 'Time In';
 
   if (button1.textContent.toLowerCase().includes(initialText.toLowerCase())) {
-    button1.innerHTML = '<span>Time Out</span>';
-    //document.getElementById("button1").setAttribute("value","Time Out");
-    
+    button1.innerHTML = '<span>Time Out</span>';    
   } 
   else
   button1.textContent = initialText;
@@ -93,14 +91,14 @@ function displayTime() {
     let confirmtext = "TIME IN ?";
 
     if (confirm(confirmtext) == true) {
-      confirmtext = "Time in sucessfull!";  
+      confirmtext = "Time in successful!";  
       //TO BE ASKED IF NEED PA IDISPLAY YUNG TIME AND DATE OR TIME IN SUCCESFULL NA LANG 
   
       var stringTime = new Date();
-              var time_in = stringTime.toLocaleString([], {
-                  hour: '2-digit',
-                  minute: '2-digit'
-              });
+      var time_in = stringTime.toLocaleString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+      });
       document.getElementById("time_in").innerHTML = time_in;
       
       //display DATE FORMAT: DAY-Month-DD-YYYY
@@ -112,7 +110,7 @@ function displayTime() {
       document.getElementById("has_schedule").innerHTML = day;
     } 
     else {
-      confirmtext = "Time in canceled!";
+      confirmtext = "Time in cancelled!";
     }
     document.getElementById('demo2').innerHTML = confirmtext;
   }
@@ -120,15 +118,17 @@ function displayTime() {
     let confirmtext = "TIME OUT ?"
 
     if (confirm(confirmtext) == true) {
-      confirmtext = "Time out sucessfull!";  
+      confirmtext = "Time out successful!";  
       //TO BE ASKED IF NEED PA IDISPLAY YUNG TIME AND DATE OR TIME IN SUCCESFULL NA LANG 
   
       var stringTime = new Date();
-              var time_out = stringTime.toLocaleString([], {
-                  hour: '2-digit',
-                  minute: '2-digit'
-              });
+      var time_out = stringTime.toLocaleString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+      });
       document.getElementById("time_out").innerHTML = time_out;
+      var btn = document.getElementsByClassName("timeinout");
+      btn.setAttribute("value", "Time Out");
       
       //display DATE FORMAT: DAY-Month-DD-YYYY
       const date_today = new Date();
@@ -139,7 +139,7 @@ function displayTime() {
       document.getElementById("has_schedule").innerHTML = day;
     } 
     else {
-      confirmtext = "Time out canceled!";
+      confirmtext = "Time out cancelled!";
     }
     document.getElementById('demo2').innerHTML = confirmtext;
   }
