@@ -1,10 +1,12 @@
 <?php 
   session_start();
+  require 'connection.php';
 
   if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
-    header("Location: index.php?err=From Logout");
+    header("Location: index.php?err=No Current Session");
     exit(); 
   } else {
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +26,7 @@
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-    <title>SIDE BAR</title>
+    <title>ADMIN ATTENDANCE</title>
   </head>
 
 <style>
@@ -95,7 +97,7 @@
         <!-- Sidebar  -->
         <nav id = "sidebar">
             <div class="sidebar-header">
-               <img src="../images/logo.png" alt = "LDT6" class = "header">
+               <img src="../images/logo.png" alt = "LDT6" class="header">
                 <b><h3 style = "text-align: center;">TAGUIG</h3></b>
             </div>
 
@@ -135,11 +137,10 @@
 
         <!-- Page Content  -->
         <div id="content">
-
-                    <!--Toggle button-->
-                    <button type="button" id="sidebarCollapse" class="btn btn-info" style = "margin-bottom: 50px;">
-                        <i class="fas fa-align-left"></i> 
-                    </button>
+            <!--Toggle button-->
+            <button type="button" id="sidebarCollapse" class="btn btn-info" style = "margin-bottom: 50px;">
+                <i class="fas fa-align-left"></i> 
+            </button>
             <div id = "login" class = "box">
 
                 <div class="time">
@@ -149,27 +150,137 @@
                     <span class="date"></span>
                 </div>
             
-                   <!--<br>-->
-                   <form method="post" name="form" action="insertAttendance.php"></form>
-                    <p id = "date_today" name = "date_today"></p>
-                    <h2 id = "time_in" name = "time_in" style="text-align: center;"></h2>
-                    <h2 id = "time_out" name = "time_out" style="text-align: center;"></h2>
-                    <p id="demo2" name = "demo2" ></p>    
+                   <!-- PHP to check if the admin has checked in -->
+                   <!-- MySQL for date data types: YYYY-MM-DD -->
+                   <?php 
+                        // check muna if may schedule
+                        $attendanceFlag = false;
+                        $dateToday = date("Y-m-d");
 
-                    <!-- Week Number (0 - 6) -->                     
-                    <input type="hidden" id="has_schedule" name="has_schedule">         
-            
-                    <div class="center">                    
-                    <!--<button class="button1" onclick="displayTime();">Time In</button>  -->    
-                      <input type="submit" id="button1" class="button1" name = "time" onclick="displayTime();" value="Submit">                                  
-                    </div>
+                      function checkSched($schedResult) {
+
+                            if(mysqli_num_rows($schedResult) == 0) {           
+                              $_SESSION['schedID'] = NULL;     
+                            } else {
+                              $_SESSION['schedID'] = 1;
+                            }      
+                      } 
+
+                        // determine if may schedule today
+
+                      $res = date('w', strtotime(date("Y-m-d")));
+                      $schedID = $_SESSION['schedule_ID'];
+                      $hasSchedToday = false;
+                                                
+                      switch ($res) {
+                          case 0: 
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND sun_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            // maybe make this a function na mag-di-determine if may sched or wala. if may sched -> proceed if nakapag-time-in na
+                            checkSched($schedResult);   
+                           break;
+
+                          case 1:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND mon_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            checkSched($schedResult); 
+                           break;
+
+                          case 2:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND tues_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            checkSched($schedResult);   
+                           break;
+
+                          case 3:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND wed_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            checkSched($schedResult);
+                           break;
+
+                          case 4:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND thurs_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                           checkSched($schedResult);   
+                           break;
+
+                          case 5:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND fri_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            checkSched($schedResult);   
+                           break;
+
+                          case 6:
+                            $schedQuery  = "SELECT * FROM schedule WHERE schedule_ID = '$schedID' AND sat_time_in IS NOT NULL";
+                            $schedResult = mysqli_query($connection, $schedQuery);
+
+                            checkSched($schedResult);
+                            break;
+                        }
+                        
+                    ?>
+
+                   
+                   <form method="POST" name="form" action="insertAttendance.php">
+                    <?php $dateToday = date("Y-m-d"); ?>
+
+                    <?php 
+                      $attendanceMsg = false;
+
+                      if(is_null($_SESSION['schedID'])){
+                        echo "<h2 id='time_in' name='time_in' style='text-align: center;'><br>You have no schedule today.<br>Come back on the next day in your schedule.</h2>";
+                      } else {
+                        $empID = $_SESSION['employee_ID'];
+
+                        $query = "SELECT * FROM attendance WHERE date_today = '$dateToday' AND employee_ID = '$empID'";
+                        $result = mysqli_query($connection, $query);
+
+                        // needs to time in
+                        if(mysqli_num_rows($result) == 0){ 
+                            $attendanceFlag = true; 
+                        } else if (mysqli_num_rows($result) == 1) {                        
+                          $row = mysqli_fetch_assoc($result);
+                          $attendanceFlag = false;
+
+                          if(isset($row['time_out'])){ // for timing out
+                            $attendanceMsg = true;
+                          } else {
+                            $attendanceMsg = false;
+                          }
+                        }
+                      }
+                    ?>
+
+                    <h2 id = "time_in" name = "time_in" style="text-align: center;"><?php if(isset($row['time_in'])) echo "Time in: ".$row['time_in']; ?></h2>
+                    <h2 id = "time_out" name = "time_out" style="text-align: center;"><?php if(isset($row['time_out'])) echo "Time out: ".$row['time_out']; ?></h2>
+                    <small id="demo2" name="demo2" ><?php if($attendanceMsg && !is_null($_SESSION['schedID'])) echo "You have already checked out."." "; ?></small>    
+
+                    <!--TODO: If may timeout na, disable ung button at display you have already checked out-->                
+                    <input type="hidden" name="attendanceFlag" value="<?php echo $attendanceFlag; ?>">            
+                    <input type="hidden" name="dateToday" value="<?php echo $dateToday; ?>">                  
+                    
+                    <?php 
+                        if($attendanceMsg && !is_null($_SESSION['schedID'])) echo "<small id='demo2' name='demo2'>Please come back on the next day in your schedule.</small>";
+                        else if(!is_null($_SESSION['schedID'])) echo "<div class='center'>                     
+                                    <input type='submit' id='button1' class='button1' name='time' onclick='displayTime();' value='Submit'>                                  
+                                    </div>";
+                    ?>
+<!--                     <div class="center">                     
+                      <input type="submit" id="button1" class="button1" name="time" onclick="displayTime();" value="Submit">                                  
+                    </div> -->
                   </form>   
             
                 <script src="../js/timeIn-out.js"></script>
             </div>
 
         </div>
-                          
+            
 
     <!--For The Sidebar-->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
