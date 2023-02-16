@@ -257,7 +257,7 @@
                       }
                     ?>
 
-                    <h2 id = "time_in" name = "time_in" style="text-align: center;"><?php if(isset($row['time_in'])) echo "Time in: ".$row['time_in']; ?></h2>
+                    <h2 id = "time_in" name = "time_in" style="text-align: center;"><?php if(isset($row['time_in'])) echo "<br>Time in: ".$row['time_in']; ?></h2>
                     <h2 id = "time_out" name = "time_out" style="text-align: center;"><?php if(isset($row['time_out'])) echo "Time out: ".$row['time_out']; ?></h2>
                     <small id="demo2" name="demo2" ><?php if($attendanceMsg && !is_null($_SESSION['schedID'])) echo "You have already checked out."." "; ?></small>    
 
