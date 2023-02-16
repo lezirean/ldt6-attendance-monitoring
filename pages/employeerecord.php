@@ -148,7 +148,7 @@
 						  </div>
 
 						  <div class="mb-3">
-							<label for="emp-sched" class="col-form-label">Sechedule ID:</label>
+							<label for="emp-sched" class="col-form-label">Schedule ID:</label>
 							<select class="form-select" id="emp-sched">
 								<?php 
                                 while($sched = mysqli_fetch_assoc($result2)) { 
