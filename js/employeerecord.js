@@ -4,7 +4,6 @@ var _row = null;
 
 function addRow()
 {
-	clearAll();
 	var empNum = $('#emp-num').val();
 	var teamName = $('#team-name option:selected').text();
 	var empSched = $('#emp-sched option:selected').text();
