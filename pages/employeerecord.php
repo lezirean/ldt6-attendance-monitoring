@@ -76,7 +76,7 @@
                     </ul>
                 </li>
                 
-                    <button type="button" class="btn btn-outline-dark logout" >Logout</button>
+                    <button type="button" class="btn btn-outline-dark logout" onClick="document.location.href='logout.php'">Logout</button>
                
         </nav>
 
