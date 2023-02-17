@@ -116,7 +116,8 @@
             <tbody>
                   
             </tbody>      
-          </table>  
+          </table>
+          <button id = "btn-print-this" class = "btn btn-success btn-lg">Generate PDF</button>  
         </div>
         
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -259,7 +260,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-        <script src="../js/employeerecord.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src = "../js/printThis.js"></script> 
+     <script src="../js/employeerecord.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
@@ -282,6 +285,14 @@
     <script type="text/javascript">
       $('#body2').css('max-height', screen.height);
       $('#body2').css('max-width', screen.width);
+    </script>
+            
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#btn-print-this').click(function(){
+            $('#body').printThis();
+        });
+      });
     </script>
 </body>
 
