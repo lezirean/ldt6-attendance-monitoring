@@ -2,15 +2,15 @@
     session_start();
     require 'connection.php';
 
-	if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
-		header("Location: index.php?err=No Present Session");
-		exit(); 
-	} else {
-		$query = "SELECT * FROM designation_team";
-		$query2 = "SELECT * FROM schedule";
+  if(!isset($_SESSION['employee_ID']) && !isset($_SESSION['password'])){  
+    header("Location: index.php?err=No Present Session");
+    exit(); 
+  } else {
+    $query = "SELECT * FROM designation_team";
+    $query2 = "SELECT * FROM schedule";
 
-		$result = mysqli_query($connection, $query);
-		$result2 = mysqli_query($connection, $query2);
+    $result = mysqli_query($connection, $query);
+    $result2 = mysqli_query($connection, $query2);
 ?>
 
 
@@ -65,13 +65,13 @@
                         </li>
                     </ul>
                 </li>
-				
-				 <li>
+        
+         <li>
                     <a href="#masterSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Master</a>
                     <ul class="collapse list-unstyled" id="masterSubmenu">
                         <li>
                             <a href="../pages/teamsrecord.php">Teams</a>
-							<a href="../pages/employeerecord.php">Employees</a>
+              <a href="../pages/employeerecord.php">Employees</a>
                         </li>
                     </ul>
                 </li>
@@ -90,167 +90,167 @@
             </button>
         
             <div id = "body">
-				<div class="container">
-					<button id="btnAdd" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Employee</button>
-					<table id="employee-table" class="table table-responsive table-hover table-bordered table-striped">
-					<br>
-						<thead>
-						<tr>
-						<br>
-							<th>Employee ID</th>
-							<th>Team ID</th>
-							<th>Schedule ID</th>
-							<th>First Name</th>
-							<th>Middle Name</th>
-							<th>Last Name</th>
-							<th>Gender</th>
-							<th>Password</th>
-							<th>Email</th>
-							<th>Phone Number</th>
-							<th>Address</th>
-							<th>Date of Birth</th>
-							<th>Status</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr></thead>
-						<tbody>
-									
-						</tbody>			
-					</table>	
-				</div>
-				
-				<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-					<div class="modal-content">
-					  <div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					  </div>
-					  <div class="modal-body">
-						<form>
-						<div class="mb-3">
-							<label for="emp-num" class="col-form-label">Employee ID:</label>
-							<input type="text" class="form-control" id="emp-num">
-							<div class="invalid-feedback">
-			                	Please Input!
-			              	</div>
-			            </div>
+        <div class="container">
+          <button id="btnAdd" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add New Employee</button>
+          <table id="employee-table" class="table table-responsive table-hover table-bordered table-striped">
+          <br>
+            <thead>
+            <tr>
+            <br>
+              <th>Employee ID</th>
+              <th>Team ID</th>
+              <th>Schedule ID</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Gender</th>
+              <th>Password</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Address</th>
+              <th>Date of Birth</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr></thead>
+            <tbody>
+                  
+            </tbody>      
+          </table>  
+        </div>
+        
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="clearAll();"></button>
+            </div>
+            <div class="modal-body">
+            <form>
+            <div class="mb-3">
+              <label for="emp-num" class="col-form-label">Employee ID:</label>
+              <input type="text" class="form-control" id="emp-num">
+              <div class="invalid-feedback">
+                        Please Input!
+                      </div>
+                  </div>
 
-			            <div class="mb-3">
-							<label for="team-name" class="col-form-label">Team ID:</label>
-							<select class="form-select" id="team-name">
-								<?php 
+                  <div class="mb-3">
+              <label for="team-name" class="col-form-label">Team ID:</label>
+              <select class="form-select" id="team-name">
+                <?php 
                                 while($team = mysqli_fetch_assoc($result)) { 
-                            	?>
-                                    <option value = ""><?php echo $team['team_ID']; ?></option>
-                                <?php } ?>	
-							</select>
-						  </div>
+                              ?>
+                                    <option value="<?php echo $team['team_ID']; ?>"><?php echo $team['team_ID']; ?></option>
+                                <?php } ?>  
+              </select>
+              </div>
 
-						  <div class="mb-3">
-							<label for="emp-sched" class="col-form-label">Schedule ID:</label>
-							<select class="form-select" id="emp-sched">
-								<?php 
+              <div class="mb-3">
+              <label for="emp-sched" class="col-form-label">Schedule ID:</label>
+              <select class="form-select" id="emp-sched">
+                <?php 
                                 while($sched = mysqli_fetch_assoc($result2)) { 
-                            	?>
-                                    <option value = ""><?php echo $sched['schedule_ID']; ?></option>
-                                <?php } ?>	
-							</select>
-						  </div>
-						  <div class="mb-3">
-							<label for="first-name" class="col-form-label">First Name:</label>
-							<input type="text" class="form-control" id="first-name">
-							<div class="valid-feedback">
-			                	Looks good!.
-			              	</div>
-						  </div>
+                              ?>
+                                    <option value="<?php echo $sched['schedule_ID']; ?>"><?php echo $sched['schedule_ID']; ?></option>
+                                <?php } ?>  
+              </select>
+              </div>
+              <div class="mb-3">
+              <label for="first-name" class="col-form-label">First Name:</label>
+              <input type="text" class="form-control" id="first-name">
+              <div class="valid-feedback">
+                        Looks good!.
+                      </div>
+              </div>
 
-						  <div class="mb-3">
-							<label for="middle-name" class="col-form-label">Middle Name:</label>
-							<input type="text" class="form-control" id="middle-name">
-							<div class="valid-feedback">
-			                	Looks good!
-			              	</div>
-						  </div>
+              <div class="mb-3">
+              <label for="middle-name" class="col-form-label">Middle Name:</label>
+              <input type="text" class="form-control" id="middle-name">
+              <div class="valid-feedback">
+                        Looks good!
+                      </div>
+              </div>
 
-						  <div class="mb-3">
-							<label for="last-name" class="col-form-label">Last Name:</label>
-							<input type="text" class="form-control" id="last-name">
-							<div class="valid-feedback">
-			                	Looks good!
-			              	</div>
-						  </div>
+              <div class="mb-3">
+              <label for="last-name" class="col-form-label">Last Name:</label>
+              <input type="text" class="form-control" id="last-name">
+              <div class="valid-feedback">
+                        Looks good!
+                      </div>
+              </div>
 
-						  <div class="col-md-4">
-			              	<div class="mb-3">
-			                	<label for="emp-gender" class="form-label">Gender</label>
-			                	<select class="form-select" id ="emp-gender">
-			                		<option value="1">Male</option>
-			                		<option value="2">Female</option>
-			              		</select>
-				            <div class="invalid-feedback">Select here!</div>
-				            </div>
-			            </div>
+              <div class="col-md-4">
+                      <div class="mb-3">
+                        <label for="emp-gender" class="form-label">Gender</label>
+                        <select class="form-select" id ="emp-gender">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                    <div class="invalid-feedback">Select here!</div>
+                    </div>
+                  </div>
 
-						  <div class="mb-3">
-							<label for="emp-password" class="col-form-label">Password:</label>
-							<input type="text" class="form-control" id="emp-password">
-							<div class="invalid-feedback">
-			                	Please provide a password.
-			              	</div>
-						  </div>
+              <div class="mb-3">
+              <label for="emp-password" class="col-form-label">Password:</label>
+              <input type="text" class="form-control" id="emp-password">
+              <div class="invalid-feedback">
+                        Please provide a password.
+                      </div>
+              </div>
 
-						  <div class="mb-3">
-							<label for="emp-email" class="col-form-label">Email:</label>
-							<input type="text" class="form-control" id="emp-email">
-							<div class="invalid-feedback">
-			                	Please provide email.
-			              	</div>
-						  </div>
+              <div class="mb-3">
+              <label for="emp-email" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="emp-email">
+              <div class="invalid-feedback">
+                        Please provide email.
+                      </div>
+              </div>
 
-						   <div class="mb-3">
-							<label for="phone-number" class="col-form-label">Phone Number:</label>
-							<input type="text" class="form-control" id="phone-number">
-							 <div class="invalid-feedback">
-			                	Please provide phone number.
-			              	</div>
-						  </div>
+               <div class="mb-3">
+              <label for="phone-number" class="col-form-label">Phone Number:</label>
+              <input type="text" class="form-control" id="phone-number">
+               <div class="invalid-feedback">
+                        Please provide phone number.
+                      </div>
+              </div>
 
-						  <div class="mb-4">
-							<label for="emp-address" class="col-form-label">Address:</label>
-							<input type="text" class="form-control" id="emp-address">
-							<div class="invalid-feedback">
-			                	Please provide an address.
-			              	</div>
-						  </div>
+              <div class="mb-4">
+              <label for="emp-address" class="col-form-label">Address:</label>
+              <input type="text" class="form-control" id="emp-address">
+              <div class="invalid-feedback">
+                        Please provide an address.
+                      </div>
+              </div>
 
-						  <div class="mb-4">
-							<label for="emp-birth" class="col-form-label">Date of Birth:</label>
-							<input type="date" class="form-control" id="emp-birth">
-							<div class="invalid-feedback">
-			                	Please provide an address.
-			              	</div>
-						  </div>
+              <div class="mb-4">
+              <label for="emp-birth" class="col-form-label">Date of Birth:</label>
+              <input type="date" class="form-control" id="emp-birth">
+              <div class="invalid-feedback">
+                        Please provide an address.
+                      </div>
+              </div>
 
-						  <div class="mb-3">
-							<label for="emp-status" class="col-form-label">Status:</label>
-							<select class="form-select" id="emp-status">
-								<option value="1">1</option>
-								<option value="2">2</option>
-							</select>
-						  </div>
-						</form>
-					  </div>
-					  <div class="modal-footer">
-						<button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="button" id="save" class="btn btn-primary" onclick="save();">Save</button>
-					  </div>
-					</div>
-				  </div>
-				</div>
-			                    
-		</div>
-						
+              <div class="mb-3">
+              <label for="emp-status" class="col-form-label">Status:</label>
+              <select class="form-select" id="emp-status">
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+              </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" style="color:red" id="close" onclick="clearAll();" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="save" class="btn btn-primary" onclick="save();">Save</button>
+            </div>
+          </div>
+          </div>
+        </div>
+                          
+    </div>
+            
 
            
 
@@ -278,7 +278,7 @@
             });
         });
     </script>
-		
+    
     <script type="text/javascript">
       $('#body2').css('max-height', screen.height);
       $('#body2').css('max-width', screen.width);
