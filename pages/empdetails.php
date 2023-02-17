@@ -178,7 +178,7 @@
         <div class="name-img">
           <span id="name"><?php echo $_SESSION['fname'] ?></span> <br>
           <?php 
-            if($_SESSION['sex'] == 'female') 
+            if($_SESSION['sex'] == 'Female') 
               echo "<img src='../images/woman.png' id='icon'>";
             else 
               echo "<img src='../images/man.png' id='icon'>";
