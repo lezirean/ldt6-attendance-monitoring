@@ -158,7 +158,7 @@
             <a href="#attendanceSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Attendance</a>
             <ul class="collapse list-unstyled" id="attendanceSubmenu">
                 <li>
-                    <a href="#">Attendance Form</a>
+                    <a href="../pages/timeIn-out-emp.php">Attendance Form</a>
                 </li>
             </ul>
         </li>
