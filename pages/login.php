@@ -25,6 +25,10 @@
 					$_SESSION['fname'] = $row['fname'];
 					$_SESSION['mname'] = $row['mname'];
 					$_SESSION['lname'] = $row['lname'];
+					$_SESSION['email'] = $row['email'];
+					$_SESSION['date_of_birth'] = $row['date_of_birth'];
+					$_SESSION['mobile_no'] = $row['mobile_no'];
+					$_SESSION['address'] = $row['address'];
 					$_SESSION['sex'] = $row['sex'];
 					$_SESSION['schedule_ID'] = $row['schedule_ID'];
 					$team_ID = $row['team_ID'];
