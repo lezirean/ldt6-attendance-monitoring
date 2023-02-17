@@ -104,7 +104,7 @@ function editRow(row)
   $("#phone-number").val($(col[9]).text());
   $("#emp-address").val($(col[10]).text());
   $("#emp-birth").val($(col[11]).text());
-  $("#emp-status option:selected").val($(col[12]).text());
+  $("#emp-status").val($(col[12]).text());
   $("#exampleModalLabel").text("Edit Record");
   $("#addModal").modal("toggle");
 
