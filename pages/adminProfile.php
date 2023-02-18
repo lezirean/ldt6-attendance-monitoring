@@ -64,6 +64,9 @@
                         <li>
                             <a href="../pages/employeerecord.php">Employees</a>
                         </li>
+                         <li>
+                            <a href="../pages/attendancerecord.php">Attendance Record</a>
+                        </li>
                     </ul>
                 </li>  
                     <button type="button" class="btn btn-outline-dark logout" onClick="document.location.href='logout.php'">Logout</button>
