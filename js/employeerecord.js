@@ -247,7 +247,6 @@ function insertEmprecord(employee_ID, team_ID, schedule_ID, fname, mname, lname,
   });
 }
 
-//Hindi pa gumagana
 function delete_row(row)
 {
   var result = confirm('Are you sure you want to delete this data?');
