@@ -71,7 +71,8 @@
                     <ul class="collapse list-unstyled" id="masterSubmenu">
                         <li>
                             <a href="../pages/teamsrecord.php">Teams</a>
-              <a href="../pages/employeerecord.php">Employees</a>
+                            <a href="../pages/employeerecord.php">Employees</a>
+                            <a href="../pages/attendancerecord.php">Attendance Record</a>
                         </li>
                     </ul>
                 </li>
